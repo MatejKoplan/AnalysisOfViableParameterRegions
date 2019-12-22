@@ -12,7 +12,7 @@ import scipy.signal as signal
 '''
 The deterministic model of biological repressilator 
 ''' 
-class Repressilator: 
+class RepressilatorF: 
 	
 	def __init__(self, parameter_values, params, initial_conditions, dt = 0.001, mode = 0): 
 		self.nParams = len(params)   
