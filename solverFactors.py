@@ -5,7 +5,10 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import random as rand  
 from numpy import random
-from repressilator_factors import RepressilatorF
+from repressilator import Repressilator
+from repressilator_backrepressing import RepressilatorBR
+from repressilator_selfactivating import RepressilatorSA
+from repressilator_selfrepressing import RepressilatorSR
 from sklearn import decomposition 
 from deap import creator, base, tools, algorithms 
 from sklearn.decomposition import PCA
@@ -407,22 +410,63 @@ if __name__ == '__main__':
 				"hill": {"min": 1, "max": 5},         
 				"Kd": {"min": 0.01, "max": 250}, 
 				"protease_concentration": {"min": 10, "max":1000},
-                                "activator": {"min": 0.0, "max": 5},
-                                "inhibitor": {"min": 0.0, "max": 5}
+                                "ar_factor": {"min": 0.0, "max": 5} # Hills factor for either activation or repression of transcription, depends on the model
 				}    	 
 
 	
 	#repressilator with new factors cost one	  
-	filename =  os.path.join(".", "repressilatorFCostOne", "exper0", "repres")   
+	#filename =  os.path.join(".", "repressilatorCostOne", "exper0", "repres")   
+	#print(filename) 
+	#model = Repressilator(parameter_values, np.array(["transcription", "transcription", "hill", "translation", "rna_degradation", "protein_degradation", "Kd"]), np.array([0, 0, 10, 150, 0, 0]), mode=0) 
+	#solver = Solver(model)  
+	#solver.run(filename)       
+
+	#repressilator with new factors cost two  
+	#filename =  os.path.join(".", "repressilatorCostTwo", "exper0", "repres")  
+	#print(filename)   
+	#model = Repressilator(parameter_values, np.array(["transcription", "transcription", "hill", "translation", "rna_degradation", "protein_degradation", "Kd"]), np.array([0, 0, 10, 150, 0, 0]), mode=1) 
+	#solver = Solver(model)         
+	#solver.run(filename)
+
+	#repressilator with self-activation with new factors cost one	  
+	filename =  os.path.join(".", "repressilatorSACostOne", "exper0", "repres")   
 	print(filename) 
-	model = Repressilator(parameter_values, np.array(["transcription", "transcription", "hill", "translation", "rna_degradation", "protein_degradation", "Kd", "activator", "inhibitor"]), np.array([0, 0, 10, 150, 0, 0, 0, 0]), mode=0) 
+	model = RepressilatorSA(parameter_values, np.array(["transcription", "transcription", "hill", "translation", "rna_degradation", "protein_degradation", "Kd", "ar_factor"]), np.array([0, 0, 10, 150, 0, 0, 0]), mode=0) 
 	solver = Solver(model)  
 	solver.run(filename)       
 
-	#repressilator with new factors cost two  
-	filename =  os.path.join(".", "repressilatorFCostTwo", "exper0", "repres")  
+	#repressilator with self-activation with new factors cost two  
+	filename =  os.path.join(".", "repressilatorSACostTwo", "exper0", "repres")  
 	print(filename)   
-	model = Repressilator(parameter_values, np.array(["transcription", "transcription", "hill", "translation", "rna_degradation", "protein_degradation", "Kd", "activator", "inhibitor"]), np.array([0, 0, 10, 150, 0, 0, 0, 0]), mode=1) 
+	model = RepressilatorSA(parameter_values, np.array(["transcription", "transcription", "hill", "translation", "rna_degradation", "protein_degradation", "Kd", "ar_factor"]), np.array([0, 0, 10, 150, 0, 0, 0]), mode=1) 
 	solver = Solver(model)         
-	solver.run(filename)                    	        
+	solver.run(filename)
+
+	#repressilator with self-activation with new factors cost one	  
+	filename =  os.path.join(".", "repressilatorBRCostOne", "exper0", "repres")   
+	print(filename) 
+	model = RepressilatorBR(parameter_values, np.array(["transcription", "transcription", "hill", "translation", "rna_degradation", "protein_degradation", "Kd", "ar_factor"]), np.array([0, 0, 10, 150, 0, 0, 0]), mode=0) 
+	solver = Solver(model)  
+	solver.run(filename)       
+
+	#repressilator with self-activation with new factors cost two  
+	filename =  os.path.join(".", "repressilatorBRCostTwo", "exper0", "repres")  
+	print(filename)   
+	model = RepressilatorBR(parameter_values, np.array(["transcription", "transcription", "hill", "translation", "rna_degradation", "protein_degradation", "Kd", "ar_factor"]), np.array([0, 0, 10, 150, 0, 0, 0]), mode=1) 
+	solver = Solver(model)         
+	solver.run(filename)
+
+	#repressilator with self-activation with new factors cost one	  
+	filename =  os.path.join(".", "repressilatorSRCostOne", "exper0", "repres")   
+	print(filename) 
+	model = RepressilatorSR(parameter_values, np.array(["transcription", "transcription", "hill", "translation", "rna_degradation", "protein_degradation", "Kd", "ar_factor"]), np.array([0, 0, 10, 150, 0, 0, 0]), mode=0) 
+	solver = Solver(model)  
+	solver.run(filename)       
+
+	#repressilator with self-activation with new factors cost two  
+	filename =  os.path.join(".", "repressilatorSRCostTwo", "exper0", "repres")  
+	print(filename)   
+	model = RepressilatorSR(parameter_values, np.array(["transcription", "transcription", "hill", "translation", "rna_degradation", "protein_degradation", "Kd", "ar_factor"]), np.array([0, 0, 10, 150, 0, 0, 0]), mode=1) 
+	solver = Solver(model)         
+	solver.run(filename)  
               		 
