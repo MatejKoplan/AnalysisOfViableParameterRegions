@@ -16,7 +16,8 @@ parameter_values = {  "transcription": {"min": 0.01, "max": 50},
 				"protein_degradation": {"min": 0.001, "max": 50},       
 				"hill": {"min": 1, "max": 5},        
 				"Kd": {"min": 0.01, "max": 250},
-                                "ar_factor": {"min": 0.0, "max": 5}
+                                "ar_factor": {"min": 0.0, "max": 5},
+                                "ar_Kd": {"min": 1, "max": 5}
 				}  
 				
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
@@ -37,8 +38,8 @@ allViablePoints = np.vstack((viablePoints1, viablePoints2))
 pca = PCA(n_components=2)
 pca.fit(allViablePoints)
 
-model1 = RepressilatorSR(parameter_values, np.array(["transcription", "transcription", "hill", "translation", "rna_degradation", "protein_degradation", "Kd", "ar_factor"]), np.array([0, 0, 10, 150, 0, 0]), mode=0) 
-model2 = RepressilatorSR(parameter_values, np.array(["transcription", "transcription", "hill", "translation", "rna_degradation", "protein_degradation", "Kd", "ar_factor"]), np.array([0, 0, 10, 150, 0, 0]), mode=1) 
+model1 = RepressilatorSR(parameter_values, np.array(["transcription", "transcription", "hill", "translation", "rna_degradation", "protein_degradation", "Kd", "ar_factor", "ar_Kd"]), np.array([0, 0, 10, 150, 0, 0]), mode=0) 
+model2 = RepressilatorSR(parameter_values, np.array(["transcription", "transcription", "hill", "translation", "rna_degradation", "protein_degradation", "Kd", "ar_factor", "ar_Kd"]), np.array([0, 0, 10, 150, 0, 0]), mode=1) 
 
 ###                   ###
 ###  SSA simulations  ###
@@ -186,7 +187,7 @@ print(ode_pers)
 plt.show()     			
 
 #plot dterministic simulation    	
-simulationPoint = [49.61, 1.43, 4.4, 21.83, 1.72, 0.78, 123.12] 
+simulationPoint = [49.61, 1.43, 4.4, 21.83, 1.72, 0.78, 123.12, 2.2, 120.12] 
 model1.getPerAmp(simulationPoint, mode="ode", indx=1)   
 
 region1 = solver.Region(viablePoints1, model1, "region1")     
