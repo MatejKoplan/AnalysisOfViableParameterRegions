@@ -179,6 +179,8 @@ class RepressilatorBR:
 		deltaP = can[5]
 		kd = can[6]
 		o = can[7] # Hills coefficient of transcription repression
+		kdo = can[8] # kd for transcription repression
+		
 		mx = Y.item(0)
 		my = Y.item(2) 
 		mz = Y.item(4)
@@ -188,9 +190,9 @@ class RepressilatorBR:
 		
 		#in case of math range error
 		try:
-			dmx = -deltaRNA*mx + alpha /(1 + math.pow(z/kd, n) + math.pow(y/kd, o)) + alpha0 
-			dmy = -deltaRNA*my + alpha /(1 + math.pow(x/kd, n) + math.pow(z/kd, o)) + alpha0  
-			dmz = -deltaRNA*mz + alpha /(1 + math.pow(y/kd, n) + math.pow(x/kd, o)) + alpha0  
+			dmx = -deltaRNA*mx + alpha /(1 + math.pow(z/kd, n) + math.pow(y/kdo, o)) + alpha0 
+			dmy = -deltaRNA*my + alpha /(1 + math.pow(x/kd, n) + math.pow(z/kdo, o)) + alpha0  
+			dmz = -deltaRNA*mz + alpha /(1 + math.pow(y/kd, n) + math.pow(x/kdo, o)) + alpha0  
 		except (OverflowError, ValueError):
 			dmx = -deltaRNA*mx + alpha + alpha0
 			dmy = -deltaRNA*my + alpha + alpha0
@@ -259,6 +261,7 @@ class RepressilatorBR:
 		deltaP = can[5]
 		kd = can[6] 
 		o = can[7] #Hills coefficient of transcription repressor
+		kdo = can[8] # kd for transcription repression
 		
 		N = np.zeros((6,15)) #6 species, 15 reactions
 		N[0,0] = -1
@@ -292,15 +295,15 @@ class RepressilatorBR:
 			#get propensities
 			a = np.zeros(15)
 			a[0] = deltaRNA*y_conc[0] 
-			a[1] = alpha /(1.0 + math.pow(y_conc[5]/(kd*omega), n) + math.pow(y_conc[3]/(kd*omega), o))*omega 
+			a[1] = alpha /(1.0 + math.pow(y_conc[5]/(kd*omega), n) + math.pow(y_conc[3]/(kdo*omega), o))*omega 
 			a[2] = alpha0*omega  
 			
 			a[3] = deltaRNA*y_conc[2] 
-			a[4] = alpha /(1.0 + math.pow(y_conc[1]/(kd*omega), n) + math.pow(y_conc[5]/(kd*omega), o))*omega
+			a[4] = alpha /(1.0 + math.pow(y_conc[1]/(kd*omega), n) + math.pow(y_conc[5]/(kdo*omega), o))*omega
 			a[5] = alpha0*omega   
 			
 			a[6] = deltaRNA*y_conc[4] 
-			a[7] = alpha /(1.0 + math.pow(y_conc[3]/(kd*omega), n) + math.pow(y_conc[1]/(kd*omega), o))*omega
+			a[7] = alpha /(1.0 + math.pow(y_conc[3]/(kd*omega), n) + math.pow(y_conc[1]/(kdo*omega), o))*omega
 			a[8] = alpha0*omega          
 			
 			a[9] = beta*y_conc[0]

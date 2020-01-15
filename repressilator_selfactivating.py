@@ -179,6 +179,8 @@ class RepressilatorSA:
 		deltaP = can[5]
 		kd = can[6]
 		m = can[7] # Hills coefficient of transcription activator
+		kdm = can[8] # kd for transcription activation
+		
 		mx = Y.item(0)
 		my = Y.item(2) 
 		mz = Y.item(4)
@@ -188,9 +190,9 @@ class RepressilatorSA:
 		
 		#in case of math range error
 		try:
-			dmx = -deltaRNA*mx + alpha * math.pow(x/kd, m)/(1 + math.pow(z/kd, n) + math.pow(x/kd, m)) + alpha0 
-			dmy = -deltaRNA*my + alpha * math.pow(y/kd, m)/(1 + math.pow(x/kd, n) + math.pow(y/kd, m)) + alpha0  
-			dmz = -deltaRNA*mz + alpha * math.pow(z/kd, m)/(1 + math.pow(y/kd, n) + math.pow(z/kd, m)) + alpha0  
+			dmx = -deltaRNA*mx + alpha * math.pow(x/kdm, m)/(1 + math.pow(z/kd, n) + math.pow(x/kdm, m)) + alpha0 
+			dmy = -deltaRNA*my + alpha * math.pow(y/kdm, m)/(1 + math.pow(x/kd, n) + math.pow(y/kdm, m)) + alpha0  
+			dmz = -deltaRNA*mz + alpha * math.pow(z/kdm, m)/(1 + math.pow(y/kd, n) + math.pow(z/kdm, m)) + alpha0  
 		except (OverflowError, ValueError):
 			dmx = -deltaRNA*mx + alpha + alpha0
 			dmy = -deltaRNA*my + alpha + alpha0
@@ -259,6 +261,7 @@ class RepressilatorSA:
 		deltaP = can[5]
 		kd = can[6] 
 		m = can[7] #Hills coefficient of transcription activation
+		kdm = can[8] # kd for transcription activation
 		
 		N = np.zeros((6,15)) #6 species, 15 reactions
 		N[0,0] = -1
@@ -292,15 +295,15 @@ class RepressilatorSA:
 			#get propensities
 			a = np.zeros(15)
 			a[0] = deltaRNA*y_conc[0] 
-			a[1] = alpha * math.pow(y_conc[1]/(kd*omega), m)/(1.0 + math.pow(y_conc[5]/(kd*omega), n) + math.pow(y_conc[1]/(kd*omega), m))*omega 
+			a[1] = alpha * math.pow(y_conc[1]/(kdm*omega), m)/(1.0 + math.pow(y_conc[5]/(kd*omega), n) + math.pow(y_conc[1]/(kdm*omega), m))*omega 
 			a[2] = alpha0*omega  
 			
 			a[3] = deltaRNA*y_conc[2] 
-			a[4] = alpha * math.pow(y_conc[3]/(kd*omega), m)/(1.0 + math.pow(y_conc[1]/(kd*omega), n) + math.pow(y_conc[3]/(kd*omega), m))*omega
+			a[4] = alpha * math.pow(y_conc[3]/(kdm*omega), m)/(1.0 + math.pow(y_conc[1]/(kd*omega), n) + math.pow(y_conc[3]/(kdm*omega), m))*omega
 			a[5] = alpha0*omega   
 			
 			a[6] = deltaRNA*y_conc[4] 
-			a[7] = alpha * math.pow(y_conc[5]/(kd*omega), m)/(1.0 + math.pow(y_conc[3]/(kd*omega), n) + math.pow(y_conc[5]/(kd*omega), m))*omega
+			a[7] = alpha * math.pow(y_conc[5]/(kdm*omega), m)/(1.0 + math.pow(y_conc[3]/(kd*omega), n) + math.pow(y_conc[5]/(kdm*omega), m))*omega
 			a[8] = alpha0*omega          
 			
 			a[9] = beta*y_conc[0]
