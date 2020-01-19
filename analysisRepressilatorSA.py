@@ -264,8 +264,8 @@ plt.show()
 
 solver_object = solver.Solver(model1)
 viableSets = [region1, region2]   		
-paramNames = [r"$\alpha$", r"$\alpha_0$",r"$n$", r"$\beta$",r"$\delta_m$", r"$\delta_p$",r"$Kd$",r"$m$"] 
-units = [r"[$h^{-1}$]", r"[$h^{-1}$]", "", r"[$h^{-1}$]", r"[$h^{-1}$]", r"[$h^{-1}]$",r"[$nM$]",""]    
+paramNames = [r"$\alpha$", r"$\alpha_0$",r"$n$", r"$\beta$",r"$\delta_m$", r"$\delta_p$",r"$Kd$",r"$m$",r"$m_Kd$"] 
+units = [r"[$h^{-1}$]", r"[$h^{-1}$]", "", r"[$h^{-1}$]", r"[$h^{-1}$]", r"[$h^{-1}]$",r"[$nM$]","",r"[$nM$]"]    
 solver_object.plotParameterVariances(viableSets, names=paramNames, units=units)         
 
 

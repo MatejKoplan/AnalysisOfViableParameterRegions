@@ -29,7 +29,7 @@ folder1 = path.join(".", "repressilatorBRCostOne", "exper0")
 folder2 = path.join(".", "repressilatorBRCostTwo", "exper0")      				
 				
 file1 =  path.join(folder1, "repres_Region0ViableSet_Iter10.p")      
-file2 =  path.join(folder2, "repres_Region00ViableSet_Iter10.p")            
+file2 =  path.join(folder2, "repres_Region0ViableSet_Iter10.p")            
 
 viablePoints1 = pickle.load(open(file1, "rb"))  
 viablePoints2 = pickle.load(open(file2, "rb"))     
@@ -44,7 +44,7 @@ model2 = RepressilatorBR(parameter_values, np.array(["transcription", "transcrip
 ###                   ###
 ###  SSA simulations  ###
 ###                   ###  
-'''
+
 #sample few random points from viable regions for region 2     
 readFromFile = False                 
 
@@ -185,7 +185,7 @@ plt.xlabel('Sample \n \n $\mathbf{(b)}$')
 
 print(ode_pers)   	
 plt.show()     			
-'''
+
 #plot dterministic simulation    	
 simulationPoint = [49.61, 1.43, 4.4, 21.83, 1.72, 0.78, 123.12, 2.2, 120.12] 
 model1.getPerAmp(simulationPoint, mode="ode", indx=1)   
@@ -206,8 +206,8 @@ plt.show()
 filesA = ["represViableSet_IterGA.p", "repres_Region0ViableSet_Iter1.p", "repres_Region0ViableSet_Iter9.p"] 
 filesB = ["repres_Region0CandidateSet_Iter1.p", "repres_Region0CandidateSet_Iter2.p", "repres_Region0CandidateSet_Iter10.p"] 
 
-filesA2 = ["represViableSet_IterGA.p", "repres_Region00ViableSet_Iter1.p", "repres_Region00ViableSet_Iter9.p"] 
-filesB2 = ["repres_Region00CandidateSet_Iter1.p", "repres_Region00CandidateSet_Iter2.p", "repres_Region00CandidateSet_Iter10.p"] 
+filesA2 = ["represViableSet_IterGA.p", "repres_Region0ViableSet_Iter1.p", "repres_Region0ViableSet_Iter9.p"] 
+filesB2 = ["repres_Region0CandidateSet_Iter1.p", "repres_Region0CandidateSet_Iter2.p", "repres_Region0CandidateSet_Iter10.p"] 
 
 pca1 = PCA(n_components=2) 
 pca2 = PCA(n_components=2) 
@@ -267,8 +267,8 @@ plt.show()
 
 solver_object = solver.Solver(model1)
 viableSets = [region1, region2]   		
-paramNames = [r"$\alpha$", r"$\alpha_0$",r"$n$", r"$\beta$",r"$\delta_m$", r"$\delta_p$",r"$Kd$",r"$m$"] 
-units = [r"[$h^{-1}$]", r"[$h^{-1}$]", "", r"[$h^{-1}$]", r"[$h^{-1}$]", r"[$h^{-1}]$",r"[$nM$]",""]    
+paramNames = [r"$\alpha$", r"$\alpha_0$",r"$n$", r"$\beta$",r"$\delta_m$", r"$\delta_p$",r"$Kd$",r"$m$",r"$m_Kd$"] 
+units = [r"[$h^{-1}$]", r"[$h^{-1}$]", "", r"[$h^{-1}$]", r"[$h^{-1}$]", r"[$h^{-1}]$",r"[$nM$]","",r"[$nM$]"]    
 solver_object.plotParameterVariances(viableSets, names=paramNames, units=units)         
 
 
